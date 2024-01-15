@@ -21,6 +21,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install general dependencies
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: zip
+        version: 1.0
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
