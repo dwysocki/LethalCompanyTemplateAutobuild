@@ -21,12 +21,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install general dependencies
-      uses: awalsh128/cache-apt-pkgs-action@latest
-      with:
-        packages: zip
-        version: 1.0
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -41,15 +35,16 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-    - name: Create zip
-      run: >
-        zip -j \
-          ${{ env.PROJECT_NAME }}.zip \
-          ${{ env.PROJECT_NAME }}/bin/Debug/netstandard*/*.dll
+    - name: Create distribution
+      run: |
+        mkdir -p dist/
+        cp \
+          ${{ env.PROJECT_NAME }}/bin/Debug/netstandard*/*.dll \
+          dist/
 
     - name: Upload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.PROJECT_NAME }}.zip
-        path: ${{ env.PROJECT_NAME }}.zip
+        name: ${{ env.PROJECT_NAME }}
+        path: dist/*
         retention-days: 14
