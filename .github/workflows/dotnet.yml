@@ -43,8 +43,8 @@ jobs:
 
     - name: Create zip
       run: >
-        zip -j
-          ${{ env.PROJECT_NAME }}.zip
+        zip -j \
+          ${{ env.PROJECT_NAME }}.zip \
           ${{ env.PROJECT_NAME }}/bin/Debug/netstandard*/*.dll
 
     - name: Upload
