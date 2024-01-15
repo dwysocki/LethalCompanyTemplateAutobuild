@@ -20,7 +20,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ DOTNET_VERSION }}
+        dotnet-version: ${{ vars.DOTNET_VERSION }}
 
     - name: Restore dependencies
       run: dotnet restore
@@ -35,12 +35,12 @@ jobs:
       run: |
         mkdir -p dist/
         cp \
-          ${{ MOD_NAME }}/bin/Debug/netstandard*/*.dll \
+          ${{ vars.MOD_NAME }}/bin/Debug/netstandard*/*.dll \
           dist/
 
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ MOD_NAME }}
+        name: ${{ vars.MOD_NAME }}
         path: dist/*
         retention-days: 14
