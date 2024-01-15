@@ -24,7 +24,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ DOTNET_VERSION }}
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Restore dependencies
       run: dotnet restore
@@ -38,6 +38,6 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ PROJECT_NAME }}.dll
-        path: ${{ PROJECT_NAME }}/bin/Debug/netstandard*/${{ PROJECT_NAME }}.dll
+        name: ${{ env.PROJECT_NAME }}.dll
+        path: ${{ env.PROJECT_NAME }}/bin/Debug/netstandard*/${{ env.PROJECT_NAME }}.dll
         retention-days: 14
