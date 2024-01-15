@@ -35,9 +35,15 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
+    - name: Create zip
+      run: >
+        zip -j
+          ${{ env.PROJECT_NAME }}.zip
+          ${{ env.PROJECT_NAME }}/bin/Debug/netstandard*/*.dll
+
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ env.PROJECT_NAME }}.dll
-        path: ${{ env.PROJECT_NAME }}/bin/Debug/netstandard*/${{ env.PROJECT_NAME }}.dll
+        name: ${{ env.PROJECT_NAME }}.zip
+        path: ${{ env.PROJECT_NAME }}.zip
         retention-days: 14
