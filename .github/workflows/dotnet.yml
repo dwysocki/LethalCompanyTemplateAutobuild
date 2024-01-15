@@ -3,10 +3,6 @@
 
 name: .NET
 
-env:
-  PROJECT_NAME: LethalCompanyTemplate
-  DOTNET_VERSION: 6.0.x
-
 on:
   push:
     branches: [ "main" ]
@@ -24,7 +20,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: ${{ DOTNET_VERSION }}
 
     - name: Restore dependencies
       run: dotnet restore
@@ -39,12 +35,12 @@ jobs:
       run: |
         mkdir -p dist/
         cp \
-          ${{ env.PROJECT_NAME }}/bin/Debug/netstandard*/*.dll \
+          ${{ MOD_NAME }}/bin/Debug/netstandard*/*.dll \
           dist/
 
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.PROJECT_NAME }}
+        name: ${{ MOD_NAME }}
         path: dist/*
         retention-days: 14
